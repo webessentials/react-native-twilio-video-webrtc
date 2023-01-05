@@ -255,7 +255,8 @@ RCT_REMAP_METHOD(setLocalAudioEnabled, enabled:(BOOL)enabled setLocalAudioEnable
           if (enabled) {
             [self startCameraCapture:cameraType];
           } else {
-            [self clearCameraInstance];
+            // TODO: rollback after core fix, https://github.com/twilio/twilio-video-ios/issues/34
+            // [self clearCameraInstance];
           }
           return enabled;
       }
@@ -302,7 +303,7 @@ RCT_EXPORT_METHOD(toggleScreenSharing: (BOOL) value) {
          TVILocalParticipant *localParticipant = self.room.localParticipant;
          [localParticipant publishVideoTrack:self.localVideoTrack];
        }
-       [self.screen startCapture];    
+       [self.screen startCapture];
   } else {
         [self unpublishLocalVideo];
         [self.screen stopCapture];
@@ -441,7 +442,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)accessToken roomName:(NSString *)roomName 
     if (self.localDataTrack) {
       builder.dataTracks = @[self.localDataTrack];
     }
-      
+
     builder.dominantSpeakerEnabled = dominantSpeakerEnabled ? YES : NO;
 
     builder.roomName = roomName;

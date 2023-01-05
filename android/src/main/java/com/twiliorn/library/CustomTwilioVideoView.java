@@ -717,7 +717,8 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
 
         if (localVideoTrack != null) {
             localVideoTrack.enable(enabled);
-            publishLocalVideo(enabled);
+            // TODO: rollback after core fix, https://github.com/twilio/video-quickstart-android/issues/653
+            // publishLocalVideo(enabled);
 
             WritableMap event = new WritableNativeMap();
             event.putBoolean("videoEnabled", enabled);
